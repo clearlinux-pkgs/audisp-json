@@ -1,0 +1,51 @@
+From 364bcef3f359c3443836339f4738103f54e2ab59 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 2 Apr 2019 14:21:46 -0700
+Subject: [PATCH] Statelessify audisp-json.
+
+---
+ Makefile      | 4 ++--
+ audisp-json.c | 5 ++++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 93673d8..a3853c2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -72,8 +72,8 @@ audisp-json.o: audisp-json.c
+ 	${GCC} -I. ${CFLAGS} ${DEBUGF} ${LIBS} ${DEFINES} -c -o audisp-json.o audisp-json.c
+ 
+ install: audisp-json au-json.conf audisp-json.conf
+-	${INSTALL} -D -m 0644 au-json.conf ${DESTDIR}/${PREFIX}/etc/audisp/plugins.d/au-json.conf
+-	${INSTALL} -D -m 0644 audisp-json.conf ${DESTDIR}/${PREFIX}/etc/audisp/audisp-json.conf
++	${INSTALL} -D -m 0644 au-json.conf ${DESTDIR}/${PREFIX}/share/audisp/plugins.d/au-json.conf
++	${INSTALL} -D -m 0644 audisp-json.conf ${DESTDIR}/${PREFIX}/share/audisp/audisp-json.conf
+ 	${INSTALL} -D -m 0755 audisp-json ${DESTDIR}/${PREFIX}/sbin/audisp-json
+ 
+ uninstall:
+diff --git a/audisp-json.c b/audisp-json.c
+index 5e3e943..3e501ae 100644
+--- a/audisp-json.c
++++ b/audisp-json.c
+@@ -44,6 +44,8 @@
+ 
+ #define CONFIG_FILE "/etc/audisp/audisp-json.conf"
+ #define CONFIG_FILE_LOCAL "audisp-json.conf"
++#define CONFIG_FILE_SYSTEM "/usr/share/audisp/audisp-json.conf"
++
+ /* after this amount of time for any response (connect, http reply, etc.) just give up
+  * and lose messages.
+  * don't set this too high as new curl handles will be created and consume memory while 
+@@ -427,7 +429,8 @@ int main(int argc, char *argv[])
+ 
+ 	if (load_config(&config, CONFIG_FILE))
+ 		if (load_config(&config, CONFIG_FILE_LOCAL))
+-			return 1;
++			if (load_config(&config, CONFIG_FILE_SYSTEM))
++				return 1;
+ 
+ 	openlog(PROGRAM_NAME, LOG_CONS, LOG_DAEMON);
+ 
+-- 
+2.21.0
+

@@ -4,23 +4,33 @@
 #
 Name     : audisp-json
 Version  : 2.2.4
-Release  : 6
+Release  : 7
 URL      : https://github.com/gdestuynder/audisp-json/archive/2.2.4/audisp-json-2.2.4.tar.gz
 Source0  : https://github.com/gdestuynder/audisp-json/archive/2.2.4/audisp-json-2.2.4.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: audisp-json-bin = %{version}-%{release}
 Requires: audisp-json-data = %{version}-%{release}
 BuildRequires : audit-dev
 BuildRequires : curl-dev
 BuildRequires : nghttp2-dev
 BuildRequires : openssl-dev
-Patch1: 0001-change-install-in-usr-etc-to-usr-share-etc.patch
+Patch1: 0001-Statelessify-audisp-json.patch
 
 %description
 # Audisp-json
 This program is a plugin for Linux Audit user space programs available at <http://people.redhat.com/sgrubb/audit/>.
 It uses the audisp multiplexer.
+
+%package bin
+Summary: bin components for the audisp-json package.
+Group: Binaries
+Requires: audisp-json-data = %{version}-%{release}
+
+%description bin
+bin components for the audisp-json package.
+
 
 %package data
 Summary: data components for the audisp-json package.
@@ -39,21 +49,24 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554205781
+export SOURCE_DATE_EPOCH=1554240189
 export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1554205781
+export SOURCE_DATE_EPOCH=1554240189
 rm -rf %{buildroot}
 %make_install
 
 %files
 %defattr(-,root,root,-)
 
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/audisp-json
+
 %files data
 %defattr(-,root,root,-)
-/usr/share/etc/audisp/audisp-json.conf
-/usr/share/etc/audisp/plugins.d/au-json.conf
-/usr/share/sbin/audisp-json
+/usr/share/audisp/audisp-json.conf
+/usr/share/audisp/plugins.d/au-json.conf
