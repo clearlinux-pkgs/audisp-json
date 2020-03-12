@@ -16,12 +16,12 @@ index 93673d8..a3853c2 100644
  	${GCC} -I. ${CFLAGS} ${DEBUGF} ${LIBS} ${DEFINES} -c -o audisp-json.o audisp-json.c
  
  install: audisp-json au-json.conf audisp-json.conf
--	${INSTALL} -D -m 0644 au-json.conf ${DESTDIR}/${PREFIX}/etc/audisp/plugins.d/au-json.conf
+-	${INSTALL} -D -m 0644 au-json.conf ${DESTDIR}/${PREFIX}/${AUDISP_PLUGINS_PATH}/au-json.conf
 -	${INSTALL} -D -m 0644 audisp-json.conf ${DESTDIR}/${PREFIX}/etc/audisp/audisp-json.conf
 +	${INSTALL} -D -m 0644 au-json.conf ${DESTDIR}/${PREFIX}/share/audisp/plugins.d/au-json.conf
 +	${INSTALL} -D -m 0644 audisp-json.conf ${DESTDIR}/${PREFIX}/share/audisp/audisp-json.conf
- 	${INSTALL} -D -m 0755 audisp-json ${DESTDIR}/${PREFIX}/sbin/audisp-json
- 
+	${INSTALL} -D -m 0755 audisp-json ${DESTDIR}/${PREFIX}/sbin/audisp-json
+
  uninstall:
 diff --git a/audisp-json.c b/audisp-json.c
 index 5e3e943..3e501ae 100644
