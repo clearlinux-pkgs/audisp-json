@@ -4,7 +4,7 @@
 #
 Name     : audisp-json
 Version  : 2.2.10
-Release  : 10
+Release  : 11
 URL      : https://github.com/gdestuynder/audisp-json/archive/2.2.10/audisp-json-2.2.10.tar.gz
 Source0  : https://github.com/gdestuynder/audisp-json/archive/2.2.10/audisp-json-2.2.10.tar.gz
 Summary  : No detailed summary available
@@ -50,21 +50,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584023628
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1605311429
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1584023628
+export SOURCE_DATE_EPOCH=1605311429
 rm -rf %{buildroot}
 %make_install
 
