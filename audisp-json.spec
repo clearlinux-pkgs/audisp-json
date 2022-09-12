@@ -4,7 +4,7 @@
 #
 Name     : audisp-json
 Version  : 2.2.10
-Release  : 11
+Release  : 12
 URL      : https://github.com/gdestuynder/audisp-json/archive/2.2.10/audisp-json-2.2.10.tar.gz
 Source0  : https://github.com/gdestuynder/audisp-json/archive/2.2.10/audisp-json-2.2.10.tar.gz
 Summary  : No detailed summary available
